@@ -5,6 +5,14 @@ This document provides details on testing various services after running the `do
 
 ---
 
+1.Create a docker.yml file for each microservices and add contents inside it 
+  ** for gateway-service
+  ![alt text](gateway_service-1.jpg)
+
+  
+
+
+
 ## Services and Endpoints
 
 ### **User Service**
