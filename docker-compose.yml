@@ -6,18 +6,18 @@ services:
     build:
       context: ./microservices/product-service
       dockerfile: docker.yml\
-      
+
     ports:
-      - "3002:3002"
+      - "3001:3001"
     networks:
       - microservices-network
 
   order-service:
     build:
-      context: ./microservices/order-service
+      context: ./microservices/user-service
       dockerfile: docker.yml
     ports:
-      - "3001:3001"
+      - "3000:3000"
     networks:
       - microservices-network
 
@@ -26,7 +26,7 @@ services:
       context: ./microservices/gateway-service
       dockerfile: docker.yml
     ports:
-      - "3000:3000"
+      - "3003:3003"
     networks:
       - microservices-network
 
