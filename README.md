@@ -7,13 +7,68 @@ This document provides details on testing various services after running the `do
 
 1.Create a docker.yml file for each microservices and add contents inside it 
   
-  ## for gateway-service
+  ## for gateway-service-->
   
   ![alt text](gateway_service-1.jpg)
 
+  ## for order-service-->
+  
+  ![alt text](order_service-1.jpg)
+
+  ## for product-service-->
+
+  ![alt text](product_service.jpg)
+
+  ## for user-service-->
+
+  ![alt text](user_service.jpg)
 
 
+2.Create a docker-compose.yml file to Orchestrate All Services
 
+ --Docker Compose helps run and manage multiple containers together. It defines services, networks, and port mappings in one file to start all microservices with a single command.
+
+![alt text](docker_compose.jpg)
+
+-- Defines all 4 microservices as separate containers.
+-- Maps their respective ports for local access (Service port:Container port).
+-- Assigns all services to a shared custom Docker bridge network for easy inter-service DNS resolution (using service names).
+
+3.Build and Run the Microservices Locally with Docker Compose
+
+--Running docker-compose up automates building images and starting containers.
+
+-- In your project root (where docker-compose.yml exists), run:
+     -->docker-compose up --build
+
+--build ensures fresh images are rebuilt if Dockerfiles or source code changed.
+--The services log output will be shown; check for errors.
+--Use browser or curl to test each service endpoint.
+
+
+4.Test Your Microservices Endpoints
+
+  -->Ensuring each microservice is running correctly and responding to API requests.
+
+  --> services and endpoints screenshots are attached
+
+  ![alt text](<Screenshot 2025-09-21 204943.jpg>) 
+  ![alt text](<Screenshot 2025-09-21 204747.jpg>) 
+  ![alt text](<Screenshot 2025-09-21 204916.jpg>)
+
+---
+
+## Basic Troubleshooting Tips
+
+1. check all ports are specified correctly to the respective services
+
+2. check the app.js files also for the specified ports, it should be checked that port number
+   mentioned in the app.js file should match the docker.yml file too.
+
+3. The build context path must match your actual directory structure in docker-compose.yml file
+    ** double check the directory name ** 
+ 
+---
 
 ## Services and Endpoints
 
