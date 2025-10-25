@@ -1,20 +1,25 @@
-# Use official lightweight Node.js runtime base image
-FROM node:14-alpine
+FROM node:18-alpine
 
-# Set working directory inside the container
-WORKDIR /gateway-service
+# Create app directory
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+# Set production environment
+ENV NODE_ENV=production
+
+# Copy package manifest(s) and install only production deps to leverage cache
 COPY package*.json ./
+RUN npm ci --only=production
 
-# Install dependencies inside the container
-RUN npm install
-
-# Copy all source code files to working directory
+# Copy application source
 COPY . .
+
+# Create a non-root user and give ownership
+RUN addgroup -S app && adduser -S app -G app && chown -R app:app /usr/src/app
+
+USER app
 
 # Expose the port the app listens on
 EXPOSE 3003
 
-# Command to start the application
-CMD ["node", "app.js"]  
+# Start the application
+CMD ["node", "app.js"]

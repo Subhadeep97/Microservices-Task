@@ -1,20 +1,18 @@
-# Use official lightweight Node.js runtime base image
-FROM node:14-alpine
+FROM node:18-alpine
 
-# Set working directory inside the container
-WORKDIR /order-service
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
+ENV NODE_ENV=production
+
 COPY package*.json ./
+RUN npm ci --only=production
 
-# Install dependencies inside the container
-RUN npm install
-
-# Copy all source code files to working directory
 COPY . .
 
-# Expose the port the app listens on
+RUN addgroup -S app && adduser -S app -G app && chown -R app:app /usr/src/app
+
+USER app
+
 EXPOSE 3002
 
-# Command to start the application
-CMD ["node", "app.js"]  
+CMD ["node", "app.js"]
